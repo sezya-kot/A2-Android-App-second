@@ -133,10 +133,14 @@ public class ImageModelImplBoundService
         if (mRequestMessengerRef != null) {
             // Unbind from the Service.
             // TODO -x- you fill in here.
-            mImagePresenter
-                    .get()
-                    .getActivityContext()
-                    .unbindService(mServiceConnection);
+            try {
+                mImagePresenter
+                        .get()
+                        .getActivityContext()
+                        .unbindService(mServiceConnection);
+            } catch (IllegalArgumentException ex) {
+                Log.e(TAG, "Wrong unbind but still work OK)" + ex);
+            }
 
             Log.d(TAG,
                     "calling Context.unbindService()");
